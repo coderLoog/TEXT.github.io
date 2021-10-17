@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+	<script src="../Js/ofo.js"></script>
+<style>
+#ofo{
+position: relative;
+
+width: 300px;
+
+margin: 0 auto;
+
+}
+
+#face{
+background-image: url("../素材/images/face.png");
+
+background-size: cover;
+
+width: 300px;
+
+height: 300px;
+
+position: absolute;
+
+}
+
+#eyeLeft{
+background-image: url("../素材/images/eyeleft.png");
+
+background-size: cover;
+
+width: 40px;
+
+height: 40px;
+
+position: absolute;
+
+top: 90px;
+
+left: 100px;
+
+}
+
+#eyeRight{
+background-image: url("../素材/images/eyeright.png");
+
+background-size: cover;
+
+width: 40px;
+
+height: 40px;
+
+position: absolute;
+
+top: 90px;
+
+left: 190px;
+
+}
+
+#glass{
+    background-image: url("../素材/images/glass.png");
+    background-size: cover;
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    left: -16px;
+    top: 20px;
+}	
+</style>
+	<script src="../Js/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+	<div id="ofo">
+			<div id="face"></div>
+			<div id="glass"></div>
+			<div id="eyeLeft"></div>
+    		<div id="eyeRight"></div>
+	</div>
+	
+<script>
+	var $lEye = $('#eyeLeft'),
+		$REye = $('#eyeRight'),
+    lFollowX = 0,
+    lFollowY = 0,
+    x = 0,
+    y = 0,
+    friction = 1 / 12;
+
+function animate() {
+    x += (lFollowX - x) * friction;
+    y += (lFollowY - y) * friction;
+
+	$REye.css({
+		'-webit-transform': 'translate(' + -x + 'px, ' + -y + 'px)',
+        '-moz-transform': 'translate(' + -x + 'px, ' + -y + 'px)',
+        'transform': 'translate(' + -x + 'px, ' + -y + 'px)'
+	});
+    $lEye.css({
+        '-webit-transform': 'translate(' + -x + 'px, ' + -y + 'px)',
+        '-moz-transform': 'translate(' + -x + 'px, ' + -y + 'px)',
+        'transform': 'translate(' + -x + 'px, ' + -y + 'px)'
+    });
+    window.requestAnimationFrame(animate);
+}
+
+$(window).on('mousemove click', function(e) {
+
+    var lMouseX = Math.max(-100, Math.min(100, $(window).width() / 2 - e.clientX));
+    var lMouseY = Math.max(-100, Math.min(100, $(window).height() / 2 - e.clientY));
+    lFollowX = (12 * lMouseX) / 100; // 100 : 12 = lMouxeX : lFollow
+    lFollowY = (10 * lMouseY) / 100;
+
+});
+
+animate();
+</script>
+</body>
+</html>
